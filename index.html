@@ -1078,7 +1078,7 @@
               return rankings.map((r, i) => (
                   <div key={i} className={`flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-bold ${i === 0 ? 'bg-amber-100/60 text-amber-900 dark:bg-amber-950/40 dark:text-amber-300' : i === 1 ? 'bg-slate-200/60 text-slate-800 dark:bg-slate-800 dark:text-slate-200' : i === 2 ? 'bg-orange-100/60 text-orange-900 dark:bg-orange-950/30' : 'bg-slate-50 dark:bg-slate-900/40'}`}>
                       <span className="w-5 text-center">{i + 1}</span>
-                      <span className="flex-1 truncate">{r.name}</span>
+                      <span className="flex-1 truncate">{r.name} さん</span>
                       <span className="text-amber-600 dark:text-amber-400 shrink-0">{r.score || 0}問</span>
                   </div>
               ));
@@ -1214,7 +1214,7 @@
                                       </select>
                                       {authUser && (
                                           <span className="text-[11px] font-bold text-slate-400 truncate max-w-[120px]">
-                                              {authUser.name}
+                                              {authUser.name} さん
                                           </span>
                                       )}
                                   </div>
@@ -1373,7 +1373,7 @@
                                       <div className="flex justify-between items-center bg-blue-50/70 dark:bg-blue-950/40 p-3 rounded-xl border border-blue-200 dark:border-blue-800/40 text-xs">
                                           <div>
                                               <span className="text-[10px] text-blue-500 font-bold block">ログイン中</span>
-                                              <span className="font-bold text-blue-900 dark:text-blue-200">{authUser.classNum}組{authUser.studentNum}番 {authUser.name}</span>
+                                              <span className="font-bold text-blue-900 dark:text-blue-200">{authUser.classNum}組{authUser.studentNum}番 {authUser.name} さん</span>
                                           </div>
                                           <button onClick={handleLogout} className="px-2.5 py-1 bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-300 hover:text-red-500 font-bold rounded-lg border dark:border-slate-700 text-[10px]">切替</button>
                                       </div>
