@@ -90,7 +90,7 @@
       ];
 
       // 個人GASエンドポイント
-      const PERSONAL_GAS_URL = "https://script.google.com/macros/s/AKfycbyH1rvgCmt3fbnNTZde3fxIY7S5hbedPkm3l7wsfkkYrjPbz11npdK7syVPrWPnm8U/exec";
+      const PERSONAL_GAS_URL = "https://script.google.com/macros/s/AKfycbw2ob3BUobg8kv1lPtUG56LN4Zo-HNtjSQbWoYS23QeXKn6y57VfHic7LnFgvedl5w/exec";
 
       // 安全なストレージラッパー
       const safeStorage = {
@@ -99,13 +99,8 @@
           removeItem: (key) => { try { localStorage.removeItem(key); } catch(e) {} }
       };
 
-      // ① 綺麗で絶対に崩れない Lucide 正式歯車アイコン
-      const IconSettings = ({size=22, className=""}) => (
-          <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`shrink-0 ${className}`}>
-              <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path>
-              <circle cx="12" cy="12" r="3"></circle>
-          </svg>
-      );
+      // --- アイコンコンポーネント群 ---
+      const IconSettings = ({size=22, className=""}) => <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`shrink-0 ${className}`}><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>;
 
       const IconVolume2 = ({size=22, className=""}) => <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`shrink-0 ${className}`}><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>;
       const IconMic = ({size=20, className=""}) => <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`shrink-0 ${className}`}><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>;
@@ -133,7 +128,6 @@
           { label: '標準', value: 1.0 }
       ];
 
-      // ① 自然なフォントサイズ定義 (中が標準)
       const fontSizesQ = [
           { label: '極小', class: 'text-sm sm:text-base' },
           { label: '小', class: 'text-base sm:text-lg' },
@@ -150,7 +144,6 @@
           { label: '特大', class: 'text-4xl sm:text-5xl font-bold' }
       ];
 
-      // ③ 元のプリセット全6種類
       const DEFAULT_PRESETS = [
           { id: 'preset_kanji_normal', name: '漢字ノーマル', settings: { darkMode: false, autoSpeak: false, rateIndex: 2, fontSizeQIndex: 2, fontSizeAIndex: 2, reverseMode: false, showCanvas: false, showSpeakButton: true, enableDictation: false, enableKeyboardSpeak: true, enableInput: false, canvasPosition: 'overlay', displayScale: 1.0 } },
           { id: 'preset_kanji_write', name: '漢字手書き', settings: { darkMode: false, autoSpeak: false, rateIndex: 2, fontSizeQIndex: 2, fontSizeAIndex: 2, reverseMode: false, showCanvas: true, showSpeakButton: true, enableDictation: false, enableKeyboardSpeak: true, enableInput: false, canvasPosition: 'overlay', displayScale: 1.0 } },
@@ -215,16 +208,13 @@
           const initialData = useMemo(() => parseProblemData(rawText), [rawText]);
 
           const [items, setItems] = useState([]);
-          // ② 出題モード
           const [activeMode, setActiveMode] = useState('all');
           const [currentItem, setCurrentItem] = useState(null);
           const [isRevealed, setIsRevealed] = useState(false);
           const [isFinished, setIsFinished] = useState(false);
 
-          // ⑧ ミス確認モード時のインデックス
           const [candidateIndex, setCandidateIndex] = useState(0);
 
-          // 認証ユーザー情報
           const [authUser, setAuthUser] = useState(() => {
               try { return JSON.parse(safeStorage.getItem(AUTH_USER_KEY)) || null; }
               catch(e) { return null; }
@@ -235,21 +225,18 @@
           const [loginLoading, setLoginLoading] = useState(false);
           const [syncPromptModal, setSyncPromptModal] = useState(null);
 
-          // ⑦ 前回のテスト点数アンケートモーダル
           const [surveyModal, setSurveyModal] = useState(null);
           const [surveyPrevTest, setSurveyPrevTest] = useState(PROBLEM_SETS[0].name);
           const [surveyScore, setSurveyScore] = useState('');
 
-          // ① 100%が中央かつデフォルト
           const [settings, setSettings] = useState({ 
               darkMode: false, autoSpeak: false, rateIndex: 2, 
               fontSizeQIndex: 2, fontSizeAIndex: 2, reverseMode: false, 
               showCanvas: true, showSpeakButton: true, enableDictation: false, 
               enableKeyboardSpeak: true, enableInput: false, canvasPosition: 'overlay', 
-              displayScale: 1.0 // 100%が中央
+              displayScale: 1.0
           });
 
-          // ② プリセットを確実に初期保持
           const [presets, setPresets] = useState(() => {
               try {
                   const saved = safeStorage.getItem(PRESETS_KEY);
@@ -278,7 +265,6 @@
           const [toast, setToast] = useState({ message: '', visible: false });
           const [listFilter, setListFilter] = useState('all');
 
-          // ⑦ 個人対抗 / クラス対抗切り替え & ランキング
           const [leaderboardScope, setLeaderboardScope] = useState('individual');
           const [leaderboardType, setLeaderboardType] = useState('today');
           const [rankings, setRankings] = useState([]);
@@ -287,7 +273,6 @@
           const [targetTestInfo, setTargetTestInfo] = useState({ id: '3-5', name: '漢字テスト 3年⑤' });
           const [selectedTargetId, setSelectedTargetId] = useState('3-5');
 
-          // キャンバス操作
           const canvasRef = useRef(null);
           const canvasRightRef = useRef(null);
           const isDrawing = useRef(false);
@@ -296,9 +281,10 @@
           const lastTime = useRef(0);
           const currentStrokeWidth = useRef(4.0);
           const activeCanvasRef = useRef(null);
-
-          // ⑨ 忘却防止クールダウンキュー (直前3問を記憶)
           const coolDownQueue = useRef([]);
+          
+          // ★ 5秒ごとの裏側同期用フラグ
+          const pendingSyncRef = useRef(false);
 
           const getStatus = useCallback((item) => {
               if (!item) return { ok: false, star: false, wrongCount: 0, consecutiveWrong: 0 };
@@ -310,7 +296,6 @@
               return items.find(i => i.q === currentItem.q) || currentItem;
           }, [items, currentItem]);
 
-          // ⑧ 現在のモードの全対象問題リスト
           const currentModeCandidates = useMemo(() => {
               return items.filter(i => {
                   const s = getStatus(i);
@@ -321,7 +306,6 @@
               });
           }, [items, activeMode, getStatus]);
 
-          // ★★★ JSONP 通信 (CORS・Load failed 完全解消) ★★★
           const sendApiRequest = useCallback((payload) => {
               if (typeof google !== 'undefined' && google.script && google.script.run) {
                   return new Promise((resolve, reject) => {
@@ -338,10 +322,9 @@
               return new Promise((resolve, reject) => {
                   const callbackName = 'gas_cb_' + Date.now() + '_' + Math.floor(Math.random() * 10000);
                   const script = document.createElement('script');
-
                   const timeout = setTimeout(() => {
                       cleanup();
-                      reject(new Error('タイムアウトしました'));
+                      reject(new Error('通信がタイムアウトしました。'));
                   }, 12000);
 
                   function cleanup() {
@@ -366,7 +349,6 @@
               });
           }, []);
 
-          // ③ 演習量（解いた問題数）のローカル記録
           const getStorageStatsKey = () => `stats_exercise_${currentSetId}`;
           const getExerciseStats = () => {
               try {
@@ -385,36 +367,55 @@
               }
               stats.totalExercise += 1;
               safeStorage.setItem(getStorageStatsKey(), JSON.stringify(stats));
+              pendingSyncRef.current = true; // 変更があったので同期フラグON
           };
 
-          // ⑥ 爆速同期（ランキング取得と同期を1回のリクエストに統合して待ち時間を激減）
+          // バックグラウンド同期本体
+          const syncStudyData = useCallback(async () => {
+              if (!authUser) return;
+              const stats = getExerciseStats();
+              const syncData = {
+                  items: items.map(i => ({ q: i.q, write: i.write, read: i.read })),
+                  stats: stats
+              };
+              try {
+                  await sendApiRequest({
+                      action: 'sync_and_log',
+                      classNum: authUser.classNum,
+                      studentNum: authUser.studentNum,
+                      userName: authUser.name,
+                      syncData: syncData,
+                      exerciseToday: stats.todayExercise || 0,
+                      totalExercise: stats.totalExercise || 0,
+                      setId: currentSet.id,
+                      setName: currentSet.name,
+                      clientEnv: (typeof google !== 'undefined') ? 'chromebook' : 'github'
+                  });
+              } catch(e) {}
+          }, [authUser, currentSet, items, sendApiRequest]);
+
+          // ★ 5秒ごとの自動同期ループ
+          useEffect(() => {
+              const timer = setInterval(() => {
+                  if (pendingSyncRef.current && authUser) {
+                      syncStudyData();
+                      pendingSyncRef.current = false;
+                  }
+              }, 5000);
+              return () => clearInterval(timer);
+          }, [syncStudyData, authUser]);
+
+          // ランキング取得（裏で同期させておき、一瞬で表示する）
           const fetchRankings = useCallback(async (type = leaderboardType) => {
               setRankingsLoading(true);
               setLeaderboardType(type);
-
-              const stats = getExerciseStats();
-              const syncData = authUser ? {
-                  items: items.map(i => ({ q: i.q, write: i.write, read: i.read })),
-                  stats: stats
-              } : null;
+              
+              if (authUser && pendingSyncRef.current) {
+                  syncStudyData();
+                  pendingSyncRef.current = false;
+              }
 
               try {
-                  // 同期とランキング取得を同時に実行
-                  if (authUser) {
-                      sendApiRequest({
-                          action: 'sync_and_log',
-                          classNum: authUser.classNum,
-                          studentNum: authUser.studentNum,
-                          userName: authUser.name,
-                          syncData: syncData,
-                          exerciseToday: stats.todayExercise || 0,
-                          totalExercise: stats.totalExercise || 0,
-                          setId: currentSet.id,
-                          setName: currentSet.name,
-                          clientEnv: (typeof google !== 'undefined') ? 'chromebook' : 'github'
-                      }).catch(() => {});
-                  }
-
                   const res = await sendApiRequest({ action: 'ranking', type: type, setId: currentSet.id });
                   if (res) {
                       if (res.rankings) setRankings(res.rankings);
@@ -429,7 +430,7 @@
               } finally {
                   setRankingsLoading(false);
               }
-          }, [authUser, leaderboardType, currentSet, items, sendApiRequest]);
+          }, [authUser, leaderboardType, currentSet, sendApiRequest, syncStudyData]);
 
           const handleSetTarget = async () => {
               const targetObj = PROBLEM_SETS.find(s => s.id === selectedTargetId);
@@ -451,8 +452,8 @@
               }
           };
 
-          // ⑦ 初めて選ぶテストの時に前回の点数を聞くチェック
           const checkAndPromptSurvey = (userObj, setId) => {
+              // ローカルに回答済みフラグがなければポップアップを表示
               const doneKey = `${SURVEY_DONE_KEY}_${userObj.classNum}_${userObj.studentNum}_${setId}`;
               if (!safeStorage.getItem(doneKey)) {
                   setSurveyModal({
@@ -483,9 +484,9 @@
                       const userObj = { classNum: loginClassNum, studentNum: loginStudentNum, name: res.name };
                       setAuthUser(userObj);
                       safeStorage.setItem(AUTH_USER_KEY, JSON.stringify(userObj));
-                      showToast(res.isFirstTime ? `暗証番号を登録しました！(${res.name})` : `${res.name} さん、ログインしました！`);
                       setLoginPin('');
-
+                      showToast(res.isFirstTime ? `暗証番号を登録しました！(${res.name})` : `${res.name} さん、ログインしました！`);
+                      
                       if (res.cloudUserData && res.cloudUserData.items) {
                           setSyncPromptModal({
                               user: userObj,
@@ -522,7 +523,6 @@
               nextQuestion(merged, activeMode);
           };
 
-          // ⑦ アンケート送信処理
           const handleSurveySubmit = async (e) => {
               if (e) e.preventDefault();
               if (!surveyScore) {
@@ -544,7 +544,6 @@
                   });
                   showToast("ご協力ありがとうございました！");
               } catch(err) {}
-
               setSurveyModal(null);
           };
 
@@ -569,9 +568,9 @@
                   dataToSave[i.q] = { write: i.write, read: i.read }; 
               });
               safeStorage.setItem(`data_v2_${currentSetId}`, JSON.stringify(dataToSave));
+              pendingSyncRef.current = true;
           };
 
-          // ⑨ 出題アルゴリズム（忘却防止クールダウンキュー ＆ ループ）
           const nextQuestion = (currentItems, mode, explicitIndex = null) => {
               const list = currentItems.filter(i => {
                   const s = getStatus(i);
@@ -581,7 +580,6 @@
                   return !s.ok;
               });
 
-              // ⑧ ミス確認モード
               if (mode === 'wrong1' || mode === 'wrong2') {
                   if (list.length === 0) {
                       setCurrentItem(null);
@@ -597,7 +595,6 @@
                   return;
               }
 
-              // すべて・要復習モード
               if (list.length === 0) {
                   setIsFinished(true);
                   setCurrentItem(null);
@@ -635,12 +632,10 @@
               });
           };
 
-          // 反転モード
           const displayData = useMemo(() => {
               if (!currentItemDetail) return { q: '', a: '' };
               let q = currentItemDetail.q;
               let a = currentItemDetail.a;
-
               if (settings.reverseMode) {
                   const match = q.match(/"([^"]+)"/);
                   if (match) {
@@ -673,7 +668,6 @@
               if (settings.autoSpeak) speak(displayAnswer, settings.rateIndex);
           }, [currentItemDetail, isRevealed, inputValue, settings, displayAnswer]);
 
-          // ③ 演習カウント加算
           const handleResult = useCallback((isOk) => {
               if (!currentItemDetail || !isRevealed) return;
               addExerciseCount();
@@ -703,7 +697,6 @@
               nextQuestion(newItems, activeMode);
           }, [currentItemDetail, isRevealed, items, activeMode, settings.reverseMode]);
 
-          // ⑧ ミス確認モード時の「次へ」
           const handleNextOnly = () => {
               if (currentModeCandidates.length === 0) return;
               addExerciseCount();
@@ -799,7 +792,6 @@
               setTimeout(() => setToast({ message: '', visible: false }), 2000);
           };
 
-          // ④ データ管理機能
           const startFocusedLearning = () => {
               const filtered = items.filter(i => {
                   const s = getStatus(i);
@@ -833,18 +825,28 @@
               }
           };
 
-          // ③＆⑪ 「すべて」再開処理（★要復習は消さずにマスター状態だけリセット）
           const resetAllData = () => {
+              if (window.confirm("このテストの学習履歴(進捗・★マーク)を削除して最初からやり直しますか？")) {
+                  safeStorage.removeItem(`data_v2_${currentSetId}`);
+                  const freshItems = parseProblemData(rawText);
+                  setItems(freshItems);
+                  setModals(prev => ({ ...prev, menu: false }));
+                  coolDownQueue.current = [];
+                  setIsFinished(false);
+                  nextQuestion(shuffleArray(freshItems), 'all');
+                  showToast("学習データをリセットしました");
+              }
+          };
+
+          // ⑪ 「すべて」モード再開処理（★要復習などは消さずにマスターだけリセット）
+          const replayAllData = () => {
               const isRead = settings.reverseMode;
               const reset = items.map(item => {
                   const cur = isRead ? (item.read || {}) : (item.write || {});
                   return {
                       ...item,
                       sessionDone: false,
-                      [isRead ? 'read' : 'write']: {
-                          ...cur,
-                          ok: false // マスターのみリセット！starやwrongCountは完全に維持
-                      }
+                      [isRead ? 'read' : 'write']: { ...cur, ok: false }
                   };
               });
               setItems(reset);
@@ -852,7 +854,6 @@
               coolDownQueue.current = [];
               setIsFinished(false);
               nextQuestion(shuffleArray(reset), 'all');
-              showToast("要復習を維持したまま、最初から演習を開始しました！");
           };
 
           const exportJSON = () => {
@@ -904,7 +905,6 @@
               input.click();
           };
 
-          // キャンバス描画
           const draw = (e) => {
               const canvas = activeCanvasRef.current;
               if (!isDrawing.current || !canvas) return;
@@ -960,7 +960,6 @@
 
           const stopDrawing = (e) => { if (e) e.preventDefault(); isDrawing.current = false; };
 
-          // 初回ロード
           useEffect(() => {
               const storageKey = `data_v2_${currentSetId}`;
               let loadedItems = [...initialData];
@@ -993,7 +992,6 @@
               } catch(e) {}
           }, [currentSetId, initialData]);
 
-          // キャンバスHD初期化
           useEffect(() => {
               const setupCanvas = (canvas) => {
                   if (!canvas) return;
@@ -1014,7 +1012,6 @@
               }
           }, [settings.showCanvas, currentItemDetail, isFinished, settings.darkMode, settings.canvasPosition, settings.displayScale, currentSetId]);
 
-          // キーボード操作
           useEffect(() => {
               const handleKeyDown = (e) => {
                   if (modals.menu || modals.list || modals.edit || modals.leaderboard || syncPromptModal || surveyModal || isFinished) return;
@@ -1036,21 +1033,23 @@
               return () => window.removeEventListener('keydown', handleKeyDown);
           }, [modals, isFinished, isRevealed, currentItemDetail, handleReveal, handleResult, settings, handleInputSubmit, displayAnswer, activeMode, syncPromptModal, surveyModal]);
 
+          const okCount = currentModeCandidates.filter(i => getStatus(i).ok).length;
+          const totalCount = currentModeCandidates.length;
+          const progressPercent = totalCount === 0 ? 0 : Math.floor((okCount / totalCount) * 100);
+
           const classSizeQ = fontSizesQ[settings.fontSizeQIndex]?.class || 'text-lg sm:text-xl font-bold';
           const classSizeA = fontSizesA[settings.fontSizeAIndex]?.class || 'text-2xl sm:text-3xl font-bold';
           const isSidePanel = settings.showCanvas && settings.canvasPosition !== 'overlay';
           const isAdmin = authUser && String(authUser.classNum).trim() === "1" && String(authUser.studentNum).trim() === "28";
           const currentMonthName = `${new Date().getMonth() + 1}月`;
 
-          // ★★★ 構文エラーを根絶したクリーンなレンダリング関数群 ★★★
+          // ★★★ 構文エラーを完全根絶したクリーンなレンダリング関数群 ★★★
+
           const renderRankingList = () => {
-              if (rankingsLoading) {
-                  return <div className="text-center py-8 text-slate-400 text-xs font-bold">集計中...</div>;
-              }
+              if (rankingsLoading) return <div className="text-center py-8 text-slate-400 text-xs font-bold">集計中...</div>;
+              
               if (leaderboardScope === 'class') {
-                  if (classRankings.length === 0) {
-                      return <div className="text-center py-8 text-slate-400 text-xs font-bold">クラスデータがありません</div>;
-                  }
+                  if (classRankings.length === 0) return <div className="text-center py-8 text-slate-400 text-xs font-bold">クラスデータがありません</div>;
                   return classRankings.map((c, i) => (
                       <div key={i} className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-xs font-bold ${i === 0 ? 'bg-amber-100/60 text-amber-900 dark:bg-amber-950/40 dark:text-amber-300' : 'bg-slate-50 dark:bg-slate-900/40'}`}>
                           <span className="w-5 text-center text-sm">{i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : `${i + 1}`}</span>
@@ -1063,9 +1062,7 @@
                   ));
               }
 
-              if (rankings.length === 0) {
-                  return <div className="text-center py-8 text-slate-400 text-xs font-bold">まだデータがありません</div>;
-              }
+              if (rankings.length === 0) return <div className="text-center py-8 text-slate-400 text-xs font-bold">まだデータがありません</div>;
 
               return rankings.map((r, i) => (
                   <div key={i} className={`flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-bold ${i === 0 ? 'bg-amber-100/60 text-amber-900 dark:bg-amber-950/40 dark:text-amber-300' : i === 1 ? 'bg-slate-200/60 text-slate-800 dark:bg-slate-800 dark:text-slate-200' : i === 2 ? 'bg-orange-100/60 text-orange-900 dark:bg-orange-950/30' : 'bg-slate-50 dark:bg-slate-900/40'}`}>
@@ -1079,10 +1076,7 @@
           const renderActionButtons = () => {
               if (!isRevealed) {
                   return (
-                      <button
-                          onClick={handleReveal}
-                          className="w-full py-3.5 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl shadow-[0_3px_0_#1e40af] active:translate-y-[3px] active:shadow-none transition-all flex flex-col items-center justify-center leading-tight"
-                      >
+                      <button onClick={handleReveal} className="w-full py-3.5 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl shadow-[0_3px_0_#1e40af] active:translate-y-[3px] active:shadow-none transition-all flex flex-col items-center justify-center leading-tight">
                           <span className="text-base tracking-wide">正解を見る</span>
                           <span className="text-[10px] font-normal opacity-60 mt-0.5">Space / Enter</span>
                       </button>
@@ -1091,10 +1085,7 @@
 
               if (activeMode === 'wrong1' || activeMode === 'wrong2') {
                   return (
-                      <button
-                          onClick={handleNextOnly}
-                          className="w-full py-3.5 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl shadow-[0_3px_0_#1e40af] active:translate-y-[3px] active:shadow-none transition-all text-base"
-                      >
+                      <button onClick={handleNextOnly} className="w-full py-3.5 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl shadow-[0_3px_0_#1e40af] active:translate-y-[3px] active:shadow-none transition-all text-base">
                           次へ進む (Space / Enter)
                       </button>
                   );
@@ -1102,17 +1093,11 @@
 
               return (
                   <div className="flex gap-3 animate-in fade-in duration-200">
-                      <button
-                          onClick={() => handleResult(false)}
-                          className="flex-1 py-3.5 bg-red-500 hover:bg-red-400 text-white font-bold rounded-xl shadow-[0_3px_0_#dc2626] active:translate-y-[3px] active:shadow-none transition-all flex flex-col items-center justify-center leading-tight"
-                      >
+                      <button onClick={() => handleResult(false)} className="flex-1 py-3.5 bg-red-500 hover:bg-red-400 text-white font-bold rounded-xl shadow-[0_3px_0_#dc2626] active:translate-y-[3px] active:shadow-none transition-all flex flex-col items-center justify-center leading-tight">
                           <span className="text-base">{activeMode === 'star' ? '要復習に残す' : 'もう一度'}</span>
                           <span className="text-[10px] font-normal opacity-60 mt-0.5">←</span>
                       </button>
-                      <button
-                          onClick={() => handleResult(true)}
-                          className="flex-1 py-3.5 bg-emerald-500 hover:bg-emerald-400 text-white font-bold rounded-xl shadow-[0_3px_0_#059669] active:translate-y-[3px] active:shadow-none transition-all flex flex-col items-center justify-center leading-tight"
-                      >
+                      <button onClick={() => handleResult(true)} className="flex-1 py-3.5 bg-emerald-500 hover:bg-emerald-400 text-white font-bold rounded-xl shadow-[0_3px_0_#059669] active:translate-y-[3px] active:shadow-none transition-all flex flex-col items-center justify-center leading-tight">
                           <span className="text-base">{activeMode === 'star' ? '要復習から消す' : 'マスター'}</span>
                           <span className="text-[10px] font-normal opacity-60 mt-0.5">→</span>
                       </button>
@@ -1134,26 +1119,11 @@
                   return (
                       <div className="flex flex-col items-center justify-center py-10 gap-5 text-center">
                           <IconCheckCircle size={56} className="text-emerald-500 animate-in zoom-in" />
-                          <h2 className="text-xl font-bold">
-                              {activeMode === 'star' ? 'すべての要復習問題をクリアしました！' : 'すべてマスターしました！'}
-                          </h2>
+                          <h2 className="text-xl font-bold">{activeMode === 'star' ? 'すべての要復習問題をクリアしました！' : 'すべてマスターしました！'}</h2>
                           {activeMode === 'star' ? (
-                              <button
-                                  onClick={() => {
-                                      setActiveMode('all');
-                                      nextQuestion(items, 'all');
-                                  }}
-                                  className="py-3 px-6 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl shadow-md transition-all text-sm"
-                              >
-                                  すべての問題に戻る
-                              </button>
+                              <button onClick={() => { setActiveMode('all'); nextQuestion(items, 'all'); }} className="py-3 px-6 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl shadow-md transition-all text-sm">すべての問題に戻る</button>
                           ) : (
-                              <button
-                                  onClick={resetAllData}
-                                  className="py-3 px-6 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl shadow-md transition-all text-sm"
-                              >
-                                  もう一度最初から挑戦
-                              </button>
+                              <button onClick={replayAllData} className="py-3 px-6 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl shadow-md transition-all text-sm">もう一度最初から挑戦</button>
                           )}
                       </div>
                   );
@@ -1162,35 +1132,20 @@
               return (
                   <div className="flex flex-col gap-4">
                       <div className="relative min-h-[200px] flex flex-col items-center justify-center bg-slate-50 dark:bg-slate-900/30 rounded-2xl p-4 border border-slate-100 dark:border-slate-800/40 overflow-hidden shadow-inner">
-                          <button
-                              onClick={() => toggleStar(currentItemDetail?.id)}
-                              className={`absolute top-2 right-2 p-1.5 rounded-full transition-transform active:scale-90 z-20 ${getStatus(currentItemDetail).star ? 'text-amber-400' : 'text-slate-300 dark:text-slate-700 hover:text-amber-400'}`}
-                              title="要復習 (Sキー)"
-                          >
+                          <button onClick={() => toggleStar(currentItemDetail?.id)} className={`absolute top-2 right-2 p-1.5 rounded-full transition-transform active:scale-90 z-20 ${getStatus(currentItemDetail).star ? 'text-amber-400' : 'text-slate-300 dark:text-slate-700 hover:text-amber-400'}`}>
                               <IconStar size={22} fill={getStatus(currentItemDetail).star ? "currentColor" : "none"} />
                           </button>
 
                           {settings.showSpeakButton && isRevealed && (
-                              <button
-                                  onClick={() => speak(displayAnswer)}
-                                  className="absolute top-2 left-2 p-1.5 rounded-full transition-all active:scale-90 z-20 text-blue-500 hover:text-blue-600 hover:bg-blue-50"
-                                  title="読み上げ (Space)"
-                              >
+                              <button onClick={() => speak(displayAnswer)} className="absolute top-2 left-2 p-1.5 rounded-full transition-all active:scale-90 z-20 text-blue-500 hover:text-blue-600 hover:bg-blue-50">
                                   <IconVolume2 size={20} />
                               </button>
                           )}
 
                           {settings.showCanvas && (
                               <div className="absolute inset-0 w-full h-full z-10 select-none">
-                                  <canvas
-                                      ref={canvasRef}
-                                      onPointerDown={startDrawing} onPointerMove={draw} onPointerUp={stopDrawing} onPointerLeave={stopDrawing}
-                                      onMouseDown={startDrawing} onMouseMove={draw} onMouseUp={stopDrawing} onMouseLeave={stopDrawing}
-                                      onTouchStart={startDrawing} onTouchMove={draw} onTouchEnd={stopDrawing}
-                                      className="w-full h-full cursor-crosshair animate-in fade-in"
-                                      style={{ touchAction: 'none' }}
-                                  />
-                                  <button onClick={clearCanvas} className="absolute bottom-2 right-2 p-2 bg-white/80 dark:bg-slate-800/80 text-slate-400 hover:text-blue-500 rounded-lg shadow-sm border border-slate-200/40 pointer-events-auto" title="消去">
+                                  <canvas ref={canvasRef} onPointerDown={startDrawing} onPointerMove={draw} onPointerUp={stopDrawing} onPointerLeave={stopDrawing} onMouseDown={startDrawing} onMouseMove={draw} onMouseUp={stopDrawing} onMouseLeave={stopDrawing} onTouchStart={startDrawing} onTouchMove={draw} onTouchEnd={stopDrawing} className="w-full h-full cursor-crosshair animate-in fade-in" style={{ touchAction: 'none' }} />
+                                  <button onClick={clearCanvas} className="absolute bottom-2 right-2 p-2 bg-white/80 dark:bg-slate-800/80 text-slate-400 hover:text-blue-500 rounded-lg shadow-sm border border-slate-200/40 pointer-events-auto">
                                       <IconTrash size={15} />
                                   </button>
                               </div>
@@ -1232,7 +1187,6 @@
                           <div className="flex justify-between items-center mb-4 border-b border-slate-100 dark:border-slate-850 pb-3">
                               <div className="flex-1 mr-2">
                                   <h1 className="text-base sm:text-lg font-bold tracking-tight text-slate-800 dark:text-slate-100">漢字テスト等練習用サイト</h1>
-                                  
                                   <div className="flex items-center gap-2 mt-1">
                                       <select
                                           value={currentSetId}
@@ -1259,7 +1213,6 @@
                                   <button
                                       onClick={() => { setModals({ ...modals, leaderboard: true }); fetchRankings(); }}
                                       className="p-2 rounded-xl text-amber-500 hover:bg-amber-50 dark:hover:bg-amber-950/30 transition-all flex items-center justify-center"
-                                      title="ランキングを見る"
                                   >
                                       <IconTrophy size={22} />
                                   </button>
@@ -1267,14 +1220,13 @@
                                   <button
                                       onClick={() => setModals({ ...modals, menu: true })}
                                       className="p-2 rounded-xl text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all flex items-center justify-center"
-                                      title="設定を開く"
                                   >
                                       <IconSettings size={22} />
                                   </button>
                               </div>
                           </div>
 
-                          {/* ② モード切り替えバー (絵文字なし・日本語表記) */}
+                          {/* モード切り替えバー */}
                           <div className="flex bg-slate-100 dark:bg-slate-800/60 p-1 rounded-xl gap-1 mb-4 overflow-x-auto no-scrollbar">
                               {[
                                   { id: 'all', label: 'すべて' },
@@ -1300,12 +1252,12 @@
                               ))}
                           </div>
 
-                          {/* ④ 上のバー（要復習・1回ミス・2回以上連続ミスは全X問中Y問目と自然に表示） */}
+                          {/* プログレスバー & 問題数表示 */}
                           <div className="mb-4">
-                              {activeMode !== 'all' ? (
+                              {activeMode === 'wrong1' || activeMode === 'wrong2' ? (
                                   <div className="flex justify-between items-center text-xs font-bold text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-800/40 px-3 py-1.5 rounded-lg border border-slate-100 dark:border-slate-800">
                                       <span>全 {currentModeCandidates.length} 問中 {currentModeCandidates.length > 0 ? (activeMode === 'star' ? (currentModeCandidates.filter(i => getStatus(i).sessionDone).length + 1) : candidateIndex + 1) : 0} 問目</span>
-                                      <span className="text-[10px] text-slate-400">{activeMode === 'star' ? '要復習モード' : '順番ループ確認'}</span>
+                                      <span className="text-[10px] text-slate-400">次へでループ確認</span>
                                   </div>
                               ) : (
                                   <div>
@@ -1313,13 +1265,13 @@
                                           <div className="h-full bg-blue-500 dark:bg-blue-600 transition-all duration-300 ease-out" style={{ width: `${currentModeCandidates.length === 0 ? 0 : Math.floor((currentModeCandidates.filter(i => getStatus(i).ok).length / currentModeCandidates.length) * 100)}%` }} />
                                       </div>
                                       <div className="flex justify-between text-[11px] font-bold text-slate-400 dark:text-slate-500">
-                                          <span>{currentModeCandidates.filter(i => getStatus(i).ok).length} / {currentModeCandidates.length} 問マスター ({settings.reverseMode ? '読み' : '書き'})</span>
+                                          <span>{okCount} / {totalCount} 問マスター ({settings.reverseMode ? '読み' : '書き'})</span>
                                       </div>
                                   </div>
                               )}
                           </div>
 
-                          {/* カード本体エリア */}
+                          {/* カード本体エリア (分離したクリーン関数呼び出し) */}
                           {renderCardContent()}
                           
                           <div className="mt-8 text-center px-4">
@@ -1360,7 +1312,7 @@
 
                   </div>
 
-                  {/* リーダーボード モーダル */}
+                  {/* リーダーボード モーダル (個人/クラス対抗トグル & ⑤ 更新ボタン常時表示) */}
                   {modals.leaderboard && (
                       <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-in fade-in duration-200" onClick={(e) => e.target === e.currentTarget && setModals({...modals, leaderboard: false})}>
                           <div className="bg-white dark:bg-slate-800 w-full max-w-md rounded-3xl shadow-2xl overflow-hidden border border-slate-100 dark:border-slate-700 flex flex-col max-h-[85vh]">
@@ -1416,7 +1368,6 @@
                                       </div>
                                   )}
 
-                                  {/* 管理者メニュー */}
                                   {isAdmin && (
                                       <div className="bg-rose-50 dark:bg-rose-950/30 p-3 rounded-2xl border border-rose-200 dark:border-rose-800/40 space-y-2">
                                           <span className="text-xs font-bold text-rose-700 dark:text-rose-300 block">👑 管理者メニュー (1組28番専用)</span>
@@ -1455,13 +1406,11 @@
                                       </div>
                                   )}
 
-                                  {/* ランキング一覧 */}
                                   <div className="space-y-1.5 min-h-[160px] max-h-60 overflow-y-auto">
                                       {renderRankingList()}
                                   </div>
                               </div>
 
-                              {/* ⑤ 常時表示の更新ボタン ＆ フッター */}
                               <div className="p-4 bg-slate-50 dark:bg-slate-900 border-t border-slate-100 dark:border-slate-700 flex gap-2 shrink-0">
                                   <button
                                       onClick={() => fetchRankings(leaderboardType)}
@@ -1611,9 +1560,10 @@
 
                                   {activeTab === 'display' && (
                                       <div className="space-y-5 animate-in fade-in duration-150">
-                                          {/* ① 60%, 80%, 100%, 120%, 140% の選択肢（100%が中央・デフォルト） */}
+                                          {/* ① 60%, 80%, 100%, 120%, 140% の選択肢 */}
                                           <div className="space-y-2">
                                               <span className="font-semibold text-sm">全体の表示倍率</span>
+                                              <p className="text-xs text-slate-400 dark:text-slate-500 leading-normal">カード全体の拡大率を調整します。</p>
                                               <div className="flex bg-slate-100 dark:bg-slate-900/60 rounded-xl p-1 gap-1">
                                                   {[
                                                       { label: '60%', value: 0.6 },
@@ -1771,7 +1721,7 @@
                       </div>
                   )}
 
-                  {/* ⑦ 前回のテスト点数アンケートポップアップ */}
+                  {/* ⑦ アンケートポップアップ */}
                   {surveyModal && (
                       <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-in fade-in">
                           <div className="bg-white dark:bg-slate-800 w-full max-w-sm rounded-3xl shadow-2xl p-6 border border-slate-100 dark:border-slate-700 space-y-4">
@@ -1784,7 +1734,6 @@
                                       漢字の伸びを調べるため、前回の点数を教えてください。（任意・スキップできます）
                                   </p>
                               </div>
-
                               <form onSubmit={handleSurveySubmit} className="space-y-3">
                                   <div>
                                       <label className="text-[10px] font-bold text-slate-400 block mb-1">前回のテストはどれ？</label>
@@ -1799,7 +1748,6 @@
                                           <option value="その他">その他のテスト</option>
                                       </select>
                                   </div>
-
                                   <div>
                                       <label className="text-[10px] font-bold text-slate-400 block mb-1">何点だった？</label>
                                       <input
@@ -1813,7 +1761,6 @@
                                           autoFocus
                                       />
                                   </div>
-
                                   <div className="space-y-2 pt-2">
                                       <button type="submit" className="w-full py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl text-xs shadow-md transition-all">
                                           送信して学習を始める
