@@ -235,7 +235,18 @@
               showCanvas: true, showSpeakButton: false, enableDictation: false, 
               enableKeyboardSpeak: false, enableInput: false, canvasPosition: 'right', 
               displayScale: 1.0
-          });
+          }); 
+
+          useEffect(() => {
+              if (settings.darkMode) {
+                  document.documentElement.classList.add('dark');
+              } else {
+                  document.documentElement.classList.remove('dark');
+              }
+          }, [settings.darkMode]);
+          // ――――↑↑↑ ここまで ↑↑↑――――
+
+          const [presets, setPresets] = useState([]);
 
           const [presets, setPresets] = useState(() => {
               try {
